@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 import routes.auth as auth
 from database import init
-from routes import organizations, users
+from routes import organizations
 app = FastAPI()
 
 @app.on_event('startup')

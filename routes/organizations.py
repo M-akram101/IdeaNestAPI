@@ -21,7 +21,6 @@ async def create_organization(organization: schemas.Organization = Body(),
     new_organization = models.Organization(**p)
 
     await new_organization.insert()
-    print(new_organization)
     
     return {"organization_id": new_organization.id}
     
@@ -56,7 +55,6 @@ async def update_organization(organization_id: str,
                                current_user: int = Depends(oauth2.get_current_user)):
         # Check if the organization exists first
     organization = await Organization.get(organization_id)
-    print(organization)
     if not organization:
         raise HTTPException(status_code=404, detail="Organization not found")
 
@@ -87,10 +85,7 @@ async def user_invite(organisation_id: str,
                         current_user: int = Depends(oauth2.get_current_user)):
     
     user = await models.User.find_one(models.User.email == user_email_model.user_email)
-    print(user)
-
     organization = await models.Organization.get(organisation_id)
-    print(organization.id)
     if user and organization:
         user.organization_id = organization.id
         await user.save()

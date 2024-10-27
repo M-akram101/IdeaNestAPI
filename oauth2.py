@@ -42,7 +42,6 @@ def verify_access_token(token: str):
                                           detail=f"Could not validate credentials", 
                                           headers = {"www-Authenticate":"Bearer"})
     try:
-        print("problem in access")
         payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
         id: str = payload.get("user_id")
 
@@ -55,10 +54,7 @@ def verify_access_token(token: str):
 #take token from request automatically, extract id for us
 #its going to verify that the token is correct by calling verify access token
 #can be passed to any path we have as a dependency
-async def get_current_user(token: str = Depends(oauth2_scheme),
-                     ):
-    
-    print("before user_id")
+async def get_current_user(token: str = Depends(oauth2_scheme)):
     user_id = verify_access_token(token)
     user = await User.get(user_id)
     return user

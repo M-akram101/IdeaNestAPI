@@ -1,0 +1,23 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  fastapi:
+    build: .
+    ports:
+      - "8080:80"
+    env_file:
+      - .env  # Specify the .env file
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/app
+  mongodb:
+    image: mongo:5
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

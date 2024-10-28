@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "0d9660c5-9672-47c5-abf3-4a09a64b82b1",
+		"name": "IdeaNestApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38511182"
+	},
+	"item": [
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"m.akram353@hotmail.com\",\n    \"password\" : \"jason123\",\n    \"name\" : \"mohamed\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL1}}signup",
+					"host": [
+						"{{URL1}}signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"JWT2\", pm.response.json().access_token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "m.akram353@hotmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "jason123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/signin",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGI0YWY0NzQtZjg4NC00NTZlLWExNzItZjIyMmVmNzRlMTRiIiwiZXhwIjoxNzMwNjU5Njg2fQ.QI4B1_lKrsD4JrI0dr0gsOkOYp4CJk06Tiv0wCQN9sk\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL1}}refresh",
+					"host": [
+						"{{URL1}}refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOrganizationbyid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL1}}875de10b-fe94-4097-9031-14f456c69e8f",
+					"host": [
+						"{{URL1}}875de10b-fe94-4097-9031-14f456c69e8f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateOrganization",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"New_organization\",\n    \"description\":\"Geo-thermal facility\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL1}}organizations",
+					"host": [
+						"{{URL1}}organizations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteOrganization",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL1}}9cecf368-30bc-4a4e-86b8-a9feedb9a37c",
+					"host": [
+						"{{URL1}}9cecf368-30bc-4a4e-86b8-a9feedb9a37c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllOrganizations",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateOrganizationById",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

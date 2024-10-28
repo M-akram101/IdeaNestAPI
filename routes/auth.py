@@ -7,6 +7,9 @@ router = APIRouter(tags=['Authentication'])
 
 @router.post("/signup", status_code=status.HTTP_201_CREATED)
 async def sign_up(user: schemas.UserCreate):
+    """
+    A route with POST method to Create a New User account.
+    """
     # Hashing the password
     hashed_password = utils.hash(user.password)
     user.password = hashed_password 
@@ -20,6 +23,10 @@ async def sign_up(user: schemas.UserCreate):
 
 @router.post('/signin', response_model=schemas.Token)
 async def sign_in(user_credentials:OAuth2PasswordRequestForm=Depends()):
+    """
+    A route with POST method to Sign in to a User account.
+
+    """
 
     user = await User.find_one(User.email == user_credentials.username)
 
@@ -37,6 +44,10 @@ async def sign_in(user_credentials:OAuth2PasswordRequestForm=Depends()):
 
 @router.post('/refresh', response_model=schemas.Token)
 async def refresh(refresh_token_model: schemas.RefreshToken = Body()):
+    """
+    A route with POST method to provid a refresh token
+    
+    """
 
     user_id = oauth2.verify_access_token(refresh_token_model.refresh_token)
     access_token = oauth2.create_access_token(data = {"user_id": str(user_id)}) 
